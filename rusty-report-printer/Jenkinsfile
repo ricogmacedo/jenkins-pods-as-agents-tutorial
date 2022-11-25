@@ -6,10 +6,22 @@ import groovy.transform.Field
 pipeline {
     agent {
         kubernetes {
+            defaultContainer 'rust'
             yaml '''
-              # Your pod goes here, you can erase this comment
+              spec:
+                containers:
+                  - name: node
+                    image: node:18.12-alpine3.15
+                    command: ["sleep", "infinity"]
+                  - name: rust
+                    image: rustlang/rust:nightly-alpine
+                    command: ["sleep", "infinity"]
             '''
         }
+    }
+
+    environment {
+        CARGO_UNTABLE_SPACE_REGISTRY = 'true'
     }
 
     options {
@@ -22,7 +34,9 @@ pipeline {
         stage('Generate Report') {
             steps {
                 dir(PROJECT_DIR) {
-                    sh './report_generator.js'
+                    container('node') {
+                        sh './report_generator.js'
+                    }
                 }
             }
         }
