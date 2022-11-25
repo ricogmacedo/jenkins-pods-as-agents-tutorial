@@ -78,7 +78,7 @@ pipeline {
                         sh '''/kaniko/executor --context=. \\
                           --dockerfile=./Dockerfile \\
                           --destination=super-report-printer:v0.1.0 \\
-                          -- use-new-run --snapshotMode=redo \\
+                          --use-new-run --snapshotMode=redo \\
                           --no-push
                         '''
                     }
