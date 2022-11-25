@@ -3,6 +3,8 @@ import groovy.transform.Field
 // We need this because of the mono repo :(
 @Field String PROJECT_DIR = 'rusty-report-printer'
 
+library
+
 pipeline {
     agent {
         kubernetes {
