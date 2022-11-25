@@ -69,12 +69,12 @@ pipeline {
             steps {
                 dir(PROJECT_DIR) {
                     container('kaniko') {
-                        sh '''/kaniko/executor --context=. \\
+                        sh """/kaniko/executor --context=. \\
                           --dockerfile=./Dockerfile \\
                           ${getKanikoDestinations()} \\
                           --use-new-run --snapshotMode=redo \\
                           --no-push
-                        '''
+                        """
                     }
                 }
             }
